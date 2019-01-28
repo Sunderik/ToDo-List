@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+.fa {
+  color: black;
+}
+.btn-space {
+  margin-right: 5px;
+}
+.hover-cursor {
+  cursor: pointer;
+}
+
+.spanBtn {
+  width: 30px;
+  height: 30px;
+  padding: 1px 0px;
+  border-radius: 15px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.42857;
+}
+.spanBtn:hover,
+.spanBtn:focus,
+.spanBtn:active { /* Help keyboard users */
+  background-color:lightgray;
+}
+

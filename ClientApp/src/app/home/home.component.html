@@ -1,0 +1,73 @@
+<div class="jumbotron">
+  <h1 class=" text-center">Список задач</h1>
+  <hr class="my-4">
+  <div class="row justify-content-center">
+    <div *ngIf="menuMode; else add">
+        <button type="button" class="btn btn-md btn-success btn-space" (click)="create()">Добавить задачу</button>
+        <button type="button" class="btn btn-md btn-danger btn-space"  (click)="deleteCompletedTasks()">Удалить выполененые</button>
+    </div>
+  </div>
+</div>
+
+<!--Список задач -->
+<div class="col-sm-8" style="margin:5px auto;" *ngFor="let task of tasks">
+  <ul class="list-group">
+    <li class="list-group-item">
+      <div class="row" *ngIf="!task.isEdited;else edit">
+        <div class="col-sm-1 align-self-center">
+          <span class="hover-cursor">
+            <i class="fa fa-2x" [ngClass]="task.status?'fa-check-circle-o':'fa-circle-thin'" aria-hidden="true" (click)="close(task)"></i>
+          </span>
+        </div>
+        <div class="col-sm-9">
+          <textarea autosize style="width: 100%;border: none; outline: none; resize:none;" [ngStyle]="{'text-decoration': task.status?'line-through':'none'}" readonly>{{task.text}}</textarea>
+        </div>
+        <div class="col-sm-2  align-self-center">
+          <span class="hover-cursor text-danger pull-left spanBtn">
+            <i class="fa fa-2x fa-edit" aria-hidden="true" (click)="editTask(task)"></i>
+          </span>
+          <span class="hover-cursor text-danger pull-right spanBtn">
+            <i class="fa fa-2x fa-trash-o" aria-hidden="true" (click)="delete(task)"></i>
+          </span>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<ng-template #edit>
+  <div class="row">
+    <div class="col-sm-10">
+      <textarea autosize style="width: 100%; resize:none;" [(ngModel)]="task.text"></textarea>
+    </div>
+    <div class="col-sm-2  align-self-right">
+      <span class="hover-cursor text-warning pull-left spanBtn">
+        <i class="fa fa-2x fa-check" aria-hidden="true" (click)="save()"></i>
+      </span>
+      <span class="hover-cursor text-danger pull-right spanBtn">
+        <i class="fa fa-2x fa-times" aria-hidden="true" (click)="cancel()"></i>
+      </span>
+    </div>
+  </div>
+</ng-template>
+
+<!--шаблон для добавления-->
+<ng-template #add>
+  <div class="row justify-content-center">
+    <table class="tg">
+      <tr>
+        <th class="tg-0pky" rowspan="2">
+          <textarea rows="3" style="width: 100%; resize: none;" [(ngModel)]="task.text"></textarea>
+        </th>
+        <th class="tg-0pky">
+          <input type="button" value="Сохранить" (click)="save()" class="btn btn-success" />
+        </th>
+      </tr>
+      <tr>
+        <td class="tg-0lax">
+          <input type="button" value="Отмена" (click)="cancel()" class="btn btn-warning" />
+        </td>
+      </tr>
+    </table>
+  </div> 
+</ng-template>
